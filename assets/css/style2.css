@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+body{
+    font-family: "Roboto", sans-serif;
+    color: #000000;
+    background-color: #F6F6F3;
+}
+header{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.btn-gv {
+    background-color: #000000;
+    color: #fff !important;
+    border-color: #000000 !important;
+}
+
+.btn-gv:hover,
+.btn-gv:active {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+.serial{
+    width: 150px;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 125%
+}
+
+.gvc-title{
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 125%;
+    transition: 0.3s ease-in-out;
+}
+
+.gv-company:hover .gvc-title{
+    color: #FF5C39;
+}
+
+.gvc-attr{
+    line-height: 1.25;
+    font-weight: 500;
+    gap: 6px;
+    font-size: 18px;
+}
+
+.gvc-value{
+    text-decoration: none;
+
+    color: #c0c0c0;
+}
+
+.gvc-value{
+    width: fit-content;
+    position: relative; 
+    word-break: break-all;   
+    line-height: 1.4;
+}
+
+.gvc-value::before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    transition: 0.3s ease-in-out;
+    background-color: #c0c0c0;
+}
+
+.gvc-value:hover::before{
+    width: 100%;
+}
+
+.gvc-hidden{
+    max-height: 0;
+    transition: 0.8s ease-in-out;
+    overflow: hidden;
+}
+
+.show-details .gvc-hidden{
+    max-height: 400px;
+}
+
+.gv-company{
+    cursor: pointer;
+}

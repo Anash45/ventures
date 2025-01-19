@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Microsoft's Venture Fund</title>
+        <link rel="shortcut icon" href="./assets/img/M12-Logo.svg" type="image/x-icon">
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./assets/css/style1.css">
+    </head>
+
+    <body>
+        <header class="py-3">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <a href="./index1.html">
+                        <img src="./assets/img/M12-Logo.svg" alt="Logo" height="62">
+                    </a>
+                    <a href="mailto:contact@m12.vc" class="btn btn-m12">contact@m12.vc</a>
+                </div>
+            </div>
+        </header>
+        <main class="py-lg-5 py-4">
+            <div class="container cards-cont">
+                <div class="row" id="ms-ventures">
+                    
+                </div>
+            </div>
+        </main>
+        <script src="./assets/js/jquery-3.7.1.min.js"></script>
+        <script src="./assets/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Fetch the JSON data
+                $.getJSON('ms-ventures-data.json', function (data) {
+                    // Iterate through each entry in the JSON data
+                    $.each(data, function (index, entry) {
+                        $('#ms-ventures').append(`
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                            <div class="flipping-card">
+                                <div class="fc-inner">
+                                    <div class="fc-front">
+                                        <img src="${entry.logo}" alt="${entry.name}" class="fc-logo">
+                                    </div>
+                                    <div class="fc-back align-items-start">
+                                        <div class="d-flex flex-column">
+                                            ${entry.name != '' ? `<h4 class="fc-title mb-0">${entry.name}</h4>` : ''}
+                                            ${entry.description != '' ? `<p class="mb-0 fc-desc">${entry.description}</p>` : ''}
+                                        </div>
+                                        <div class="d-flex flex-column mt-auto">
+                                            ${entry.caseStudy != '' ? `<a href="${entry.caseStudy}" target="_blank" class="fc-link fc-case-study">
+                                                <span class="lh-1">Read case study</span>
+                                                <span class="lh-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none">
+                                                        <path d="M11.4838 1.73576L16.5579 6.87909V7.43955H0V8.5643H16.5579V9.12477L11.4838 14.2681L12.2686 15.0611L17.6702 9.58992V6.41013L12.2686 0.938904L11.4838 1.73576Z" fill="#091F2C"></path>
+                                                    </svg>
+                                                </span>
+                                            </a>` : ''}
+                                            ${entry.websiteLink != '' ? `<a href="${entry.websiteLink}" target="_blank" class="fc-link fc-case-study" target="_blank">
+                                                <span class="lh-1">Visit website</span>
+                                                <span class="lh-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none">
+                                                        <path d="M11.4838 1.73576L16.5579 6.87909V7.43955H0V8.5643H16.5579V9.12477L11.4838 14.2681L12.2686 15.0611L17.6702 9.58992V6.41013L12.2686 0.938904L11.4838 1.73576Z" fill="#091F2C"></path>
+                                                    </svg>
+                                                </span>
+                                            </a>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`);
+                    });
+                }).fail(function (jqxhr, textStatus, error) {
+                    // Handle errors
+                    console.error('Error fetching JSON:', textStatus, error);
+                });
+            });
+
+        </script>
+    </body>
+
+</html>
