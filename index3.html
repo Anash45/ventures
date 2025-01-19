@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Founders Fund - Portfolio</title>
+        <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./assets/css/style3.css">
+    </head>
+
+    <body>
+        <header class="py-4">
+            <div class="container py-3">
+                <div class="d-flex align-items-center justify-content-between flex-sm-row flex-column gap-3">
+                    <a href="./index1.html">
+                        <img src="./assets/img/logo-ff-2015.svg" alt="Logo" height="30">
+                    </a>
+                    <a href="mailto:first@gv.com" class="btn btn-gv">eremiah@torchcomllc.com</a>
+                </div>
+            </div>
+        </header>
+        <main class="py-lg-5 py-4">
+            <div class="d-flex flex-wrap" id="ff-ventures">
+            </div>
+        </main>
+        <script src="./assets/js/jquery-3.7.1.min.js"></script>
+        <script src="./assets/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Fetch the JSON data
+                $.getJSON('founders-fund-data.json', function (data) {
+                    // Iterate through each entry in the JSON data
+                    data.forEach((entry, index) => {
+                        // Create the HTML structure for each company
+                        const companyCard = `
+                            <div class="col-xl-3 col-lg-4 col-6">
+                                <div class="ff-card" data-index="${index}">
+                                    <div class="fc-bg" style="background-image: url(${entry.logo});">
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        // Append the company card to the #ff-ventures container
+                        $('#ff-ventures').append(companyCard);
+                    });
+
+                    // Handle click event on .ff-card
+                    $(document).on('click', '.ff-card', function () {
+                        const index = $(this).data('index'); // Get the index of the clicked card
+                        const company = data[index]; // Get the corresponding company data
+
+                        // Create the details popup dynamically
+                        const detailsPopup = `
+                            <div class="details-popup">
+                                <div class="container">
+                                    <div class="dp-content">
+                                        <span class="dp-close">
+                                            <img src="./assets/img/icon-close-2023-black.svg" alt="Close" height="26" width="26">
+                                        </span>
+                                        <div class="d-flex flex-column gap-sm-5 gap-4">
+                                            <div class="d-flex-flex-column gap-2">
+                                                <h5 class="mb-0 fw-bold text-uppercase mb-2 dp-subtitle dp-category">
+                                                    ${company.company_data.category || ''}
+                                                </h5>
+                                                <h2 class="fw-extrabold dp-title mb-0">${company.company_data.name || ''}</h2>
+                                            </div>
+                                            <p class="dp-desc mb-0 fw-medium">
+                                                ${company.company_data.description || ''}
+                                            </p>
+                                            <div class="d-flex flex-column gap-2 my-md-3">
+                                                <h5 class="mb-0 fw-bold dp-subtitle dp-founders-label">Founders</h5>
+                                                <div class="d-flex flex-column">
+                                                    ${company.company_data.founders.map((founder) => `
+                                                        <a href="${founder.linkedin}" target="_blank" class="dp-link dp-founder-link">
+                                                            ${founder.name}
+                                                        </a>`).join('')}
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column gap-2 my-md-3">
+                                                <h5 class="mb-0 fw-bold dp-subtitle dp-profiles-label">Profiles</h5>
+                                                <div class="d-flex flex-column">
+                                                    ${company.company_data.profiles.map((profile) => `
+                                                        <a href="${profile.url}" target="_blank" class="dp-link dp-profile-link">
+                                                            ${profile.name}
+                                                        </a>`).join('')}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        // Append the popup to the body
+                        $('body').append(detailsPopup).css({ 'overflow': 'hidden' });
+
+                        // Add close functionality
+                        $('.dp-close').on('click', function () {
+                            $('.details-popup').fadeOut(500);
+                            setTimeout(function () {
+                                $('.details-popup').remove(); // Remove the popup on close
+                                $('body').css({ 'overflow': 'auto' });
+                            }, 500)
+                        });
+                    });
+                }).fail(function (jqxhr, textStatus, error) {
+                    // Handle errors
+                    console.error('Error fetching JSON:', textStatus, error);
+                });
+            });
+
+        </script>
+    </body>
+
+</html>
